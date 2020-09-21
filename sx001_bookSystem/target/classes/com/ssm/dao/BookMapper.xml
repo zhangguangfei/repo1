@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.BookMapper">
+
+  <insert id="addBook" useGeneratedKeys="true" keyProperty="id">
+  	insert into book(name,author,publish,publishdate,page,price,content)
+  	values(#{name},#{author},#{publish},#{publishdate},#{page},#{price},#{content})
+  </insert>
+  
+  <!--修改图书 -->
+  <update id="updateBook" parameterType="book">
+  	update book
+  	<set>
+  		<if test="name!=null and name!=''">name=#{name},</if>
+  		<if test="author!=null and author!=''">author=#{author},</if>
+  		<if test="publish!=null and publish!=''">publish=#{publish},</if>
+  		<if test="publishdate!=null">publishdate=#{publishdate},</if>
+  		<if test="page!=null">page=#{page},</if>
+  		<if test="price!=null">price=#{price},</if>
+  		<if test="content!=null and content!=''">content=#{content}</if>
+  	</set>
+  	where id=#{id}
+  </update>
+  
+  <!--根据图书名称和作者查询图书 -->
+  <select id="getBookList" parameterType="book" resultType="book">
+  	select * from book
+  	<trim prefix="where" prefixOverrides="and | or">
+  		<if test="name!=null and name!=''">name like concat('%',#{name},'%')</if>
+  		<if test="author!=null and author!=''">and author like concat('%',#{author},'%')</if>
+  	</trim>
+  </select>
+</mapper>

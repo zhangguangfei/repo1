@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE configuration
+	    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<!--配置log4j日志记录工具 -->
+		<setting name="logImpl" value="LOG4J" />
+	</settings>
+
+	<!--为实体类取别名 方便**Mapper.xml的书写 -->
+	<typeAliases>
+		<!--批量为实体类取别名 默认别名为实体类首字母小写 -->
+		<package name="com.ssm.entity" />
+	</typeAliases>
+	<!--配置分页插件pagehelper方言 -->
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<property name="helperdialect" value="mysql" />
+		</plugin>
+	</plugins>
+	<!--映射器 -->
+	<mappers>
+		<!--批量加载映射文件 -->
+		<package name="com.ssm.dao" />
+	</mappers>
+</configuration>
